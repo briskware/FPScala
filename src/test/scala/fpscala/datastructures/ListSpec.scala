@@ -94,7 +94,7 @@ class ListSpec extends FlatSpec with Matchers {
       _ < 5
     }
     assert(List(1,2,3,4) === x)
-  }                                                                                                                                        3
+  }
 
   "zip" should "merge the lists to pairs" in {
     val x = List(1,2,3) zip List(2,4,6)
