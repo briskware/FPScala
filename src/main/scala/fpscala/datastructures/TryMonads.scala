@@ -1,21 +1,28 @@
 package fpscala.datastructures
 
-import scala.util.{Success, Try}
+import scala.util.{Failure, Success, Try}
 
 /**
  * Created by stefan on 30/10/15.
  */
 object TryMonads extends App {
 
-  def f[T](arg: T): Try[T] = {
-    Success(arg)
+  def f[T](arg: T): Try[T] = arg match {
+    case 5 => Failure(new IllegalArgumentException("bad value"))
+    case x @ _ => Success(x)
   }
 
-  var result = for {
-    step1 <- f("hello")
-    step2 <- f(step1.length)
-    step3 <- f("_" * step2)
-  } yield step3
+  def g(s: String) = {
+    val result = for {
+      step1 <- f(s)
+      step2 <- f(step1.length)
+      step3 <- f("_" * step2)
+    } yield step3
 
-  println(s"result=$result")
+    println(s""""$s" => $result""")
+  }
+
+  g("how are you")
+  g("hello")
+
 }
